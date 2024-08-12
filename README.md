@@ -10,6 +10,6 @@ An OCI compliant container runtime, such as:
 Docker Desktop or Podman.
 
 
-<code>dotnet dev-certs https --trust<code>
+<code> dotnet dev-certs https --trust <code>
 
-<code>dotnet run --project TreeApp/TreeApp.AppHost<code>
+<code> dotnet run --project TreeApp/TreeApp.AppHost <code>
