@@ -1,0 +1,66 @@
+---
+openapi: 3.0.0
+info:
+  title: user.tree
+  description: Represents entire tree API.
+  version: 1.0.0
+paths:
+
+  /api.user.tree.get:
+    post:
+      description: Returns your entire tree. If your tree doesn't exist it will be created automatically.
+      operationId: Tree_Get
+      parameters:
+        - name: treeName
+          in: query
+          required: true
+          description: Tree name.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReactTest.Tree.Site.Model.MNode'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+components:
+  responses:
+    InternalServerErrorResponse:
+      description: Any error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorModel'
+
+  schemas:
+
+    ReactTest.Tree.Site.Model.MNode:
+      description: Node.
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - name
+        - children
+      properties:
+        id:
+          description: Id.
+          type: integer
+          format: int64
+        name:
+          description: Name.
+          type: string
+        children:
+          description: Children.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReactTest.Tree.Site.Model.MNode'
+
+    ErrorModel:
+      $ref: 'Errors.Definitions.yaml#/components/schemas/ErrorModel'
+    ErrorData:
+      $ref: 'Errors.Definitions.yaml#/components/schemas/ErrorData'

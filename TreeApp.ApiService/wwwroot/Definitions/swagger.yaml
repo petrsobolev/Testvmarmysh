@@ -1,0 +1,39 @@
+openapi: 3.0.1
+info:
+  title: Users API
+  description: Combined API Documentation for Users
+  version: "1.0.0"
+paths:
+  /api.user.tree.get:
+    $ref: './Tree.WebApi.yaml#/paths/~1api.user.tree.get'
+  /api.user.tree.node.create:
+    $ref: './TreeNode.WebApi.yaml#/paths/~1api.user.tree.node.create'
+  /api.user.tree.node.delete:
+    $ref: './TreeNode.WebApi.yaml#/paths/~1api.user.tree.node.delete'
+  /api.user.tree.node.rename:
+    $ref: './TreeNode.WebApi.yaml#/paths/~1api.user.tree.node.rename'
+  /api.user.journal.getRange:
+    $ref: './Journal.WebApi.yaml#/paths/~1api.user.journal.getRange'
+  /api.user.journal.getSingle:
+    $ref: './Journal.WebApi.yaml#/paths/~1api.user.journal.getSingle'
+
+components:
+  schemas:
+    ErrorModel:
+      $ref: './Errors.Definitions.yaml#/components/schemas/ErrorModel'
+    ErrorData:
+      $ref: './Errors.Definitions.yaml#/components/schemas/ErrorData'
+    ReactTest.Tree.Site.Model.MNode:
+      $ref: './Tree.WebApi.yaml#/components/schemas/ReactTest.Tree.Site.Model.MNode'
+    FxNet.Web.Def.Api.Diagnostic.View.VJournalFilter:
+      $ref: './Journal.WebApi.yaml#/components/schemas/FxNet.Web.Def.Api.Diagnostic.View.VJournalFilter'
+    FxNet.Web.Model.MRange<FxNet.Web.Def.Api.Diagnostic.Model.MJournalInfo>:
+      $ref: './Journal.WebApi.yaml#/components/schemas/FxNet.Web.Model.MRange<FxNet.Web.Def.Api.Diagnostic.Model.MJournalInfo>'
+    FxNet.Web.Def.Api.Diagnostic.Model.MJournalInfo:
+      $ref: './Journal.WebApi.yaml#/components/schemas/FxNet.Web.Def.Api.Diagnostic.Model.MJournalInfo'
+    FxNet.Web.Def.Api.Diagnostic.Model.MJournal:
+      $ref: './Journal.WebApi.yaml#/components/schemas/FxNet.Web.Def.Api.Diagnostic.Model.MJournal'
+
+  responses:
+    InternalServerErrorResponse:
+      $ref: './Tree.WebApi.yaml#/components/responses/InternalServerErrorResponse'

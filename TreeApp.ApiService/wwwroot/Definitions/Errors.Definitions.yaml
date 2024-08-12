@@ -1,0 +1,39 @@
+---
+openapi: 3.0.0
+info:
+  title: Error definitions.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+
+    ErrorModel:
+      description: Error model.
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - id
+        - data
+      properties:
+        type:
+          description: Type.
+          type: string
+        id:
+          description: Id.
+          type: string
+        data:
+          description: Data.
+          allOf:
+            - $ref: '#/components/schemas/ErrorData'
+
+    ErrorData:
+      description: Error data.
+      type: object
+      additionalProperties: false
+      required:
+        - message
+      properties:
+        message:
+          description: Message.
+          type: string

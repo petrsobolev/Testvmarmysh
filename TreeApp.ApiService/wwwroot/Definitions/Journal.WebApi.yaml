@@ -1,0 +1,176 @@
+---
+openapi: 3.0.0
+info:
+  title: user.journal
+  description: Represents journal API.
+  version: 1.0.0
+paths:
+
+  /api.user.journal.getRange:
+    post:
+      description: |
+        Provides the pagination API. Skip means the number of items should be skipped by server. Take means the maximum
+        number items should be returned by server. All fields of the filter are optional.
+      operationId: Journal_GetRange
+      parameters:
+        - name: skip
+          in: query
+          required: true
+          description: Skip.
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - name: take
+          in: query
+          required: true
+          description: Take.
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+      requestBody:
+        description: Filter.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FxNet.Web.Def.Api.Diagnostic.View.VJournalFilter'
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FxNet.Web.Model.MRange<FxNet.Web.Def.Api.Diagnostic.Model.MJournalInfo>'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+  /api.user.journal.getSingle:
+    post:
+      description: Returns the information about an particular event by ID.
+      operationId: Journal_GetSingle
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: Id.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FxNet.Web.Def.Api.Diagnostic.Model.MJournal'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+components:
+  responses:
+    InternalServerErrorResponse:
+      description: Any error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorModel'
+
+  schemas:
+
+    FxNet.Web.Def.Api.Diagnostic.View.VJournalFilter:
+      description: Filter.
+      type: object
+      additionalProperties: false
+      properties:
+        from:
+          description: From.
+          type: string
+          format: date-time
+          nullable: true
+        to:
+          description: To.
+          type: string
+          format: date-time
+          nullable: true
+        search:
+          description: Search.
+          type: string
+          nullable: true
+
+    FxNet.Web.Model.MRange<FxNet.Web.Def.Api.Diagnostic.Model.MJournalInfo>:
+      description: Journal info range.
+      type: object
+      additionalProperties: false
+      required:
+        - skip
+        - count
+        - items
+      properties:
+        skip:
+          description: Skip.
+          type: integer
+          format: int32
+        count:
+          description: Count.
+          type: integer
+          format: int32
+        items:
+          description: Items.
+          type: array
+          items:
+            $ref: '#/components/schemas/FxNet.Web.Def.Api.Diagnostic.Model.MJournalInfo'
+
+    FxNet.Web.Def.Api.Diagnostic.Model.MJournalInfo:
+      description: Journal info.
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - eventId
+        - createdAt
+      properties:
+        id:
+          description: Id.
+          type: integer
+          format: int64
+        eventId:
+          description: Event id.
+          type: integer
+          format: int64
+        createdAt:
+          description: Created at.
+          type: string
+          format: date-time
+
+    FxNet.Web.Def.Api.Diagnostic.Model.MJournal:
+      description: Journal.
+      type: object
+      additionalProperties: false
+      required:
+        - text
+        - id
+        - eventId
+        - createdAt
+      properties:
+        text:
+          description: Text.
+          type: string
+        id:
+          description: Id.
+          type: integer
+          format: int64
+        eventId:
+          description: Event id.
+          type: integer
+          format: int64
+        createdAt:
+          description: Created at.
+          type: string
+          format: date-time
+
+    ErrorModel:
+      $ref: 'Errors.Definitions.yaml#/components/schemas/ErrorModel'
+    ErrorData:
+      $ref: 'Errors.Definitions.yaml#/components/schemas/ErrorData'

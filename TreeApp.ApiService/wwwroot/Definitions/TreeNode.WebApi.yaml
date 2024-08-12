@@ -1,0 +1,111 @@
+---
+openapi: 3.0.0
+info:
+  title: user.tree.node
+  description: Represents tree node API.
+  version: 1.0.0
+paths:
+
+  /api.user.tree.node.create:
+    post:
+      description: |
+        Create a new node in your tree. You must to specify a parent node ID that belongs to your tree. A new node name
+        must be unique across all siblings.
+      operationId: TreeNode_Create
+      parameters:
+        - name: treeName
+          in: query
+          required: true
+          description: Tree name.
+          schema:
+            type: string
+        - name: parentNodeId
+          in: query
+          required: true
+          description: Parent node id.
+          schema:
+            type: integer
+            format: int64
+        - name: nodeName
+          in: query
+          required: true
+          description: Node name.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK.
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+  /api.user.tree.node.delete:
+    post:
+      description: Delete an existing node in your tree. You must specify a node ID that belongs your tree.
+      operationId: TreeNode_Delete
+      parameters:
+        - name: treeName
+          in: query
+          required: true
+          description: Tree name.
+          schema:
+            type: string
+        - name: nodeId
+          in: query
+          required: true
+          description: Node id.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK.
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+  /api.user.tree.node.rename:
+    post:
+      description: |
+        Rename an existing node in your tree. You must specify a node ID that belongs your tree. A new name of the node
+        must be unique across all siblings.
+      operationId: TreeNode_Rename
+      parameters:
+        - name: treeName
+          in: query
+          required: true
+          description: Tree name.
+          schema:
+            type: string
+        - name: nodeId
+          in: query
+          required: true
+          description: Node id.
+          schema:
+            type: integer
+            format: int64
+        - name: newNodeName
+          in: query
+          required: true
+          description: New node name.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK.
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+components:
+  responses:
+    InternalServerErrorResponse:
+      description: Any error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorModel'
+
+  schemas:
+
+    ErrorModel:
+      $ref: 'Errors.Definitions.yaml#/components/schemas/ErrorModel'
+    ErrorData:
+      $ref: 'Errors.Definitions.yaml#/components/schemas/ErrorData'
