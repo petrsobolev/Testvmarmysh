@@ -7,9 +7,10 @@
 Installed with the Visual Studio installer or the .NET CLI workload.
 
 An OCI compliant container runtime, such as:
-Docker Desktop or Podman.
+Docker Desktop or Podman
 
+dotnet workload install aspire
 
-<code> dotnet dev-certs https --trust <code>
+dotnet dev-certs https --trust
 
-<code> dotnet run --project TreeApp/TreeApp.AppHost <code>
+dotnet run --project TreeApp/TreeApp.AppHost
